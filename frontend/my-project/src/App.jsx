@@ -1,0 +1,33 @@
+import React, { } from 'react'
+import {BrowserRouter,Routes,Route  }from "react-router-dom" 
+import Navbar  from './components/Navbar'
+import Home from "./pages/Home"
+import Register from "./pages/Register"
+import Login from "./pages/Login"
+import Profile from "./pages/Profile"
+import Product from "./pages/Product"
+import Order from "./pages/Order"
+import Cart from "./pages/Cart"
+
+
+function App() {
+  return (
+    <div>
+      <>
+      
+         <Navbar/>
+        <Routes>
+           <Route path="/" element={<Home />}></Route>
+               <Route path= "/register" element={<Register/>} ></Route>
+            <Route path ="/login" element ={<Login/>}/>
+            <Route path = "/profile" element = {<Profile/>}/>
+             <Route path = "/products" element ={<Product/>}/>
+             <Route path = "/order" element = {<Order/>}/>
+           <Route path = "/cart" element = {<Cart/>}/>       
+      </ Routes>
+      </>
+      
+    </div>
+  )
+}
+export default App
