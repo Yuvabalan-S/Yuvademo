@@ -2,17 +2,25 @@ const express = require("express")
 const Products = require("../models/productSchema")
 const router = express.Router()
 const upload= require("../multer.js")
+const verify = require("../verify.js")
 
 //add product
-router.post("/",upload.single("image"),async(req,res)=>{
+router.post("/add",upload.single("image"),async(req,res)=>{
     try{
-        const { name, price, description } = req.body
-        const image = req.file ? `/upload /${req.file.filename}`:null
+        console.log("enter")
+        const {name,price,description,image} = req.body
+        
+        if (!image || !image.startsWith('http')) {
+      return res.status(400).json({ message: "Invalid image URL" });
+    }
 
+           console.log("enter product")
          const product = new Products({
             name,price,description,image
          })
+         console.log("product created")
     const newProduct = await product.save()
+    
     res.status(201).json(newProduct,"Product added")
     console.log("Product added", newProduct)
     }
@@ -23,7 +31,7 @@ router.post("/",upload.single("image"),async(req,res)=>{
    
 })
 //get product
-router.get("/",async(req,res)=>{
+router.get("/",verify,async(req,res)=>{
     const product =await Products.find()
     res.status(201).json(product,"get all products")
     console.log("Get all products",product)

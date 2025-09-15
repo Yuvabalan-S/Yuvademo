@@ -20,7 +20,12 @@ function Navbar() {
               <Link to ="/profile" className='hover:text-yellow-300 transition'>Profile</Link>
             </li>
             <li>
-              <Link to ="/products" className='hover:text-yellow-300 transition'>Product</Link>
+              <Link to ="/addtocart" className='hover:text-yellow-300 transition'>Addtocart</Link>
+            </li>
+            <li>
+              <Link to ="/products" className='hover:text-yellow-300 transition'>Products</Link>
+            </li>
+            <li><Link to ="addproduct" className='hover:text-yellow-300 transition'>AddProduct</Link>
             </li>
             <li><Link to ="/order" className='hover:text-yellow-300 transition'>Order</Link>
             </li>

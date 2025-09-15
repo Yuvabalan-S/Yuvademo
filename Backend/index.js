@@ -12,7 +12,7 @@ const app =express()
 
 app.use(express.json())
 app.use(cors())
-app.use(express.static("./images"))
+//pp.use( express.static('uploads'));
 
 app.use("/api/user",userRoutes)
 app.use("/api/product",productRoutes)

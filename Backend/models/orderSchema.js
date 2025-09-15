@@ -23,7 +23,8 @@ const orderSchema = new mongoose.Schema ({
     ],
     total:Number,
     status:{
-        type:String,default:"Pending"
+        type:String,
+        default:"Pending"
     }
 
     

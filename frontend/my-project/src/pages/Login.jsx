@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import axios from "axios"
 import {login} from "../assets/redux/userSlice.js"
 import {useDispatch} from "react-redux"
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 
 function Login() {
   const[email,setEmail] = useState()
   const[password,setPassword] = useState()
 const dispatch = useDispatch()
 const navigate = useNavigate()
+
 const handleSubmit =async(e)=>{
   e.preventDefault()
   try{
@@ -18,7 +19,20 @@ const handleSubmit =async(e)=>{
     password
   }
   )
-  dispatch(login(res.data.user))
+   const token = res.data.token;
+      localStorage.setItem('token', token);
+      const response = await axios.get('http://localhost:5005/api/user/profile', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });  console.log(token)
+  dispatch(login(response.data))
+
+  try{
+    localStorage.setItem('user', JSON.stringify(response.data))
+  }catch(e){
+      console.log(e)
+  }
   console.log("login successs",res)
   alert("login successsfully")
   setTimeout(()=>{

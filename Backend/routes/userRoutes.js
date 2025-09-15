@@ -42,13 +42,7 @@ router.post("/login",async(req,res)=>{
 
     const token = jwt.sign({id:user._id},secretKey)
             console.log("user logged in")
-    res.json({token,user:
-        {
-        id:user._id,
-        name:user.name,
-        email:user.name,
-        }
-    })
+    res.json({ token, user: { id: user._id, name: user.name, email: user.email } })
 }
 catch(error){
     console.log("login error")
