@@ -13,9 +13,9 @@ function Navbar() {
               <Link to= "/" className='flex items-center justify-center hover:text-yellow-300 transition'><FaHome/></Link>
             </li>
             <Link to ="/register" className='hover:text-yellow-300 transition'>Register</Link>
-            <li>
+            {/*<li>
               <Link to ="/login" className='hover:text-yellow-300 transition'>Login</Link>
-            </li>
+            </li>*/}
             <li>
               <Link to ="/profile" className='hover:text-yellow-300 transition'>Profile</Link>
             </li>
@@ -30,23 +30,11 @@ function Navbar() {
             <li><Link to ="/order" className='hover:text-yellow-300 transition'>Order</Link>
             </li>
             <li>
-             <Link to ="/cart" className='flex items-center justify-center hover:text-yellow-300 transition'><FaShoppingCart/></Link>
+             <Link to ="/logout" className='flex items-center justify-center hover:text-yellow-300 transition'>Logout</Link>
             </li>
           </ul>
         </nav>
   )
 }
-{/*
-  div>
-        <div>
-            <Link to= "/">Home</Link>
-            <Link to ="/register">Register</Link>
-            <Link to ="/login">Login</Link>
-            <Link to ="/profile">Profile</Link>
-            <Link to ="/products">Product</Link>
-            <Link to ="/order">Order</Link>
-            <Link to ="/cart">Cart</Link>
-            </div>        
-    </div>
-  */}
+
 export default Navbar

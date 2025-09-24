@@ -51,7 +51,9 @@ const productSlice = createSlice({
     initialState:{
         productslist:[],
     },
-    reducers:{},
+    reducers:{
+        
+    },
         
         
         extraReducers:(builder)=>{

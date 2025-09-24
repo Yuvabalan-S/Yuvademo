@@ -51,8 +51,15 @@ catch(error){
 })
 
 router.get("/profile",verify,async(req,res)=>{
-    const user =await User.findById(req.user.id).select("-password")
-    res.status(201).json(user,"profile created")
-    console.log("profile created",user)
+    try{
+        const user =await User.findById(req.user.id).select("-password")
+    if(!user) return res,status(400).json({message:"user not foune"})
+    res.json(user)
+    }catch(err){
+          console.log({message:"server error",err})
+    }
+    
+ 
+    
 })
 module.exports = router

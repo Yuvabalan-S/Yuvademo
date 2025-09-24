@@ -7,20 +7,21 @@ const verify = require("../verify")
 
 const router = express.Router()
 
-//verify token
 router.get("/verify-token", verify, (req, res) => {
     res.status(200).json({ valid: true })
     console.log("token verify")
 })
 
 
-//order post
 router.post("/",verify,async(req,res)=>{
       try{
             const { products, total, status } = req.body
             if(!Array.isArray(products) || products.length === 0){
-                  return res.status(400).json({message:"products are required"})
+                  console.log("no productas")
+                  return res.status(400).json({message:" No products"})
             }
+
+             
             const order = new Orders({
                   userId: req.user.id,
                   products,
@@ -29,32 +30,22 @@ router.post("/",verify,async(req,res)=>{
             })
             const newOrder = await order.save()
             console.log("order success",newOrder)
-            return res.status(201).json({ message: "Order placed successfully", order: newOrder })
+            return res.status(200).json({ message: "Order placed successfully", order: newOrder })
       }catch(error){
             console.error("order create error", error)
-            return res.status(500).json({message:"Internal Server Error"})
+            return res.status(400).json({message:"Internal Server Error"})
       }
 })
-//order get
-router.get("/",async(req,res)=>{
-      const order =  await Orders.find()
-          console.log("get orders",order)
-          res.status(201).json(order,"Get all orders")   
-})
+router.get("", async (req, res) => {
+  try {
+    const orders = await Orders.find()
+      .populate("products.productId", "name image price")
+    res.json(orders)
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+});
 
-//order get by user id
-router.get("/:userId",async(req,res)=>{
-      try{
-            const order = await Orders.find({
-            userId:req.params.userId
-      })
-     res.json(order)
-     console.log("get order by id",order)
-      }
-      catch(err){
-            console.log("get order error") 
-      }
-})
 router.delete("/:orderId",async(req,res)=>{
       try{
             const order =  await Orders.findByIdAndDelete(req.params.orderId)
@@ -63,7 +54,7 @@ router.delete("/:orderId",async(req,res)=>{
       }
       catch(err){
             console.log("delete error")
-            res.status(401).json("delete error")
+            res.status(200).json("delete error")
       }
 })
 module.exports = router

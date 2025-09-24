@@ -8,8 +8,8 @@ router.post("/add",async(req,res)=>{
     const cart = await addToCart.findOne({userId})
 
     if(cart){
-        const itemIndex = cart.products.findIndex( p=> p.productId == productId)
-        if(itemIndex > -1){
+        const itemIndex = cart.products.findIndex( p=> p.productId === productId)
+        if(itemIndex > 1){
             cart.products[itemIndex].quantity += quantity
         }
         else{
@@ -42,9 +42,21 @@ router.get('/:user',async(req,res)=>{
 })
 
 router.get('/:userid',async(req,res)=>{
-    const cart = await addToCart.findById(req.params.id)
+    const cart = await addToCart.findById(req.params.userid)
     res.status(200).json({message:"get cart items by id",cart:cart})
     console.log("get items cart by id",cart)
+})
+
+router.delete("/:cartId",async(req,res)=>{
+    try{
+            const cart =  await addToCart.findByIdAndDelete(req.params.cartId)
+            res.status(201).json(cart,"order Cancelled")
+            console.log("order cancelled",cart)
+      }
+      catch(err){
+            console.log("delete error")
+            res.status(200).json("delete error")
+      }
 })
 
 

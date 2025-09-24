@@ -1,11 +1,11 @@
 const express = require("express")
 const Products = require("../models/productSchema")
 const router = express.Router()
-const upload= require("../multer.js")
+//const upload= require("../multer.js")
 const verify = require("../verify.js")
 
 //add product
-router.post("/add",upload.single("image"),async(req,res)=>{
+router.post("/add",async(req,res)=>{
     try{
         console.log("enter")
         const {name,price,description,image} = req.body
@@ -30,25 +30,25 @@ router.post("/add",upload.single("image"),async(req,res)=>{
     }
    
 })
-//get product
+
 router.get("/",verify,async(req,res)=>{
     const product =await Products.find()
     res.status(201).json(product,"get all products")
     console.log("Get all products",product)
 })
-//get product from id
+
 router.get("/:id",async(req,res)=>{
     const product = await Products.findById(req.params.id)
     res.status(201).json(product,"Get product from id")
     console.log("get product from id",product)
 })
-//update product
+
 router.put("/:id",async(req,res)=>{
     const product = await Products.findByIdAndUpdate(req.params.id,req.body ,{new:true})
     res.status(201).json(product,"product updaated")
     console.log("products updated",product)
 })
-//delete product
+
 router.delete("/:id",async(req,res)=>{
     const product = await Products.findByIdAndDelete(req.params.id)
     res.status(201).json(product,"product deleted")
